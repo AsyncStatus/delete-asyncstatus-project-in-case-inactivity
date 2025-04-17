@@ -4,7 +4,7 @@ metadata:
   name: asyncstatus-executor
   namespace: delete-asyncstatus-project-in-case-inactivity
 spec:
-  schedule: "* * * * *" #TODO change to midnight
+  schedule: "0 0 * * *"
   jobTemplate:
     spec:
       template:
