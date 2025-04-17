@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: delete-asyncstatus-project-in-case-inactivity-executor
+  namespace: delete-asyncstatus-project-in-case-inactivity
+spec:
+  schedule: "* * * * *" #TODO change to midnight
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: delete-asyncstatus-project-in-case-inactivity-executor
+        spec:
+          imagePullSecrets:
+          - name: harbor-registry
+          containers:
+          - name: executor
+            image: harbor.rent2door.pl/delete-asyncstatus-project-in-case-inactivity/executor:000 # {"$imagepolicy": "delete-asyncstatus-project-in-case-inactivity:delete-asyncstatus-project-in-case-inactivity-executor"}
+            imagePullPolicy: Always
+          restartPolicy: OnFailure

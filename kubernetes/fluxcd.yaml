@@ -1,0 +1,45 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: delete-asyncstatus-project-in-case-inactivity-executor
+  namespace: delete-asyncstatus-project-in-case-inactivity
+spec:
+  image: harbor.${ROOT_DOMAIN}/delete-asyncstatus-project-in-case-inactivity/executor
+  interval: 10s
+  provider: generic
+  secretRef:
+    name: harbor-registry
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: delete-asyncstatus-project-in-case-inactivity-executor
+  namespace: delete-asyncstatus-project-in-case-inactivity
+spec:
+  imageRepositoryRef:
+    name: delete-asyncstatus-project-in-case-inactivity-executor
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: delete-asyncstatus-project-in-case-inactivity-executor
+  namespace: delete-asyncstatus-project-in-case-inactivity
+spec:
+  interval: 10s
+  sourceRef:
+    kind: GitRepository
+    name: delete-asyncstatus-project-in-case-inactivity
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    push:
+      branch: main
+    commit:
+      author:
+        email: tobiasz.gleba24@gmail.com
+        name: tobiasz-gleba
