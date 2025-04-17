@@ -16,6 +16,6 @@ spec:
           - name: harbor-registry
           containers:
           - name: executor
-            image: harbor.rent2door.pl/delete-asyncstatus-project-in-case-inactivity/executor:20250417190239 # {"$imagepolicy": "delete-asyncstatus-project-in-case-inactivity:delete-asyncstatus-project-in-case-inactivity-executor"}
+            image: harbor.rent2door.pl/delete-asyncstatus-project-in-case-inactivity/executor:20250417192200 # {"$imagepolicy": "delete-asyncstatus-project-in-case-inactivity:delete-asyncstatus-project-in-case-inactivity-executor"}
             imagePullPolicy: Always
           restartPolicy: OnFailure
