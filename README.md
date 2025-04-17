@@ -1,2 +1,3 @@
-# delete-project-in-case-inactivityof
-The project, that will delete AsyncStatus in case of lack of consistency
+# delete asyncstatus project in case inactivity
+
+The cron will delete the repo, in case of no activity in https://github.com/AsyncStatus/asyncstatus repo.
