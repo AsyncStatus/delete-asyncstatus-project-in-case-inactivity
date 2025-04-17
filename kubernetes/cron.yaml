@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: delete-asyncstatus-project-in-case-inactivity-executor
+  name: asyncstatus-executor
   namespace: delete-asyncstatus-project-in-case-inactivity
 spec:
   schedule: "* * * * *" #TODO change to midnight
