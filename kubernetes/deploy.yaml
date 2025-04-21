@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: executor
+  namespace: delete-asyncstatus-project-in-case-inactivity
+  labels:
+    app: executor
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: executor
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: executor
+    spec:
+      containers:
+      - name: executor
+        image: harbor.rent2door.pl/delete-asyncstatus-project-in-case-inactivity/executor:20250417192200 # {"$imagepolicy": "delete-asyncstatus-project-in-case-inactivity:delete-asyncstatus-project-in-case-inactivity-executor"}
+        ports:
+        - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          limits:
+            memory: "1024Mi"
+            cpu: "2000m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+      imagePullSecrets:
+      - name: harbor-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: executor
+  namespace: delete-asyncstatus-project-in-case-inactivity
+spec:
+  selector:
+    app: executor
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: executor
+  namespace: delete-asyncstatus-project-in-case-inactivity
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-system-secured-standard@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: "http-acme-challenge"
+spec:
+  tls:
+    - hosts:
+        - executor.asyncstatus.com
+      secretName: executor-tls
+  rules:
+    - host: executor.asyncstatus.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: executor
+                port:
+                  number: 80

@@ -1,13 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from github_repo.read_git_repo_status import check_commits_today
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-# Mount the static directory
-app.mount("/static", StaticFiles(directory="templates"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 # Root route to serve the index.html
 @app.get("/")
-async def read_root():
-    return FileResponse("templates/index.html")
+async def read_item(request: Request):
+    check_commits_today()
+    return templates.TemplateResponse(
+        request=request, name="index.html", context={"done": check_commits_today()}
+    )

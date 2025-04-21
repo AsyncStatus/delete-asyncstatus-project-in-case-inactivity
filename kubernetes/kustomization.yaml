@@ -4,3 +4,4 @@ resources:
   - namespace.yaml
   - fluxcd.yaml
   - cron.yaml
+  - deploy.yaml
