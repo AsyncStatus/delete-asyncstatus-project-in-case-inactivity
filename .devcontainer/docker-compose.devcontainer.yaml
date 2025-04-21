@@ -1,0 +1,4 @@
+services:
+  executor:
+    volumes:
+      - .:/app

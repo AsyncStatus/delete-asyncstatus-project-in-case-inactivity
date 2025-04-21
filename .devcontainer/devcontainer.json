@@ -1,0 +1,53 @@
+{
+  "name": "executor",
+  "dockerComposeFile": ["../docker-compose.yaml", "docker-compose.devcontainer.yaml"],
+  "service": "executor",
+  "workspaceFolder": "/app/executor",
+  "remoteUser": "root",
+  "overrideCommand": true,
+  "mounts": [
+    "source=${env:HOME}/.ssh,target=/root/.ssh,type=bind"
+  ],
+  "features": {
+    // "ghcr.io/devcontainers/features/common-utils:2": {
+    //   "configureZshAsDefaultShell": true
+    // },
+    // "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+    //   "omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting https://github.com/zsh-users/zsh-completions https://github.com/zsh-users/zsh-history-substring-search",
+    //   "plugins": "zsh-autosuggestions zsh-syntax-highlighting zsh-completions zsh-history-substring-search"
+    // },
+    "ghcr.io/devcontainers-contrib/features/flake8:2": {}
+  },
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+        "python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
+        "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
+        "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle"
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "ms-python.python",
+        "ms-python.isort",
+        "ms-python.flake8",
+        "ms-python.autopep8",
+        "mikestead.dotenv",
+        "PKief.material-icon-theme",
+        "aaron-bond.better-comments",
+        "redhat.vscode-yaml",
+        "eamodio.gitlens",
+        "oderwat.indent-rainbow",
+        "cweijan.vscode-database-client2",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "github.vscode-github-actions",
+        "GitHub.vscode-pull-request-github",
+        "njpwerner.autodocstring"
+      ]
+    }
+  }
+}
