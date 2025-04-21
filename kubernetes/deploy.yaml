@@ -38,6 +38,13 @@ spec:
             port: 8000
           initialDelaySeconds: 5
           periodSeconds: 5
+        env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-settings
+              key: github_token
+              required: true
         resources:
           limits:
             memory: "1024Mi"

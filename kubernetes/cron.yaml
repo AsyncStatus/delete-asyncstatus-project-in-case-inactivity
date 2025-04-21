@@ -25,6 +25,6 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: github-settings
-                  key: github-token
+                  key: github_token
                   required: true
           restartPolicy: OnFailure
