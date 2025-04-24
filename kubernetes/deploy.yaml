@@ -6,7 +6,7 @@ metadata:
   labels:
     app: executor
 spec:
-  replicas: 10
+  replicas: 1
   selector:
     matchLabels:
       app: executor
@@ -25,19 +25,19 @@ spec:
         image: harbor.rent2door.pl/delete-asyncstatus-project-in-case-inactivity/executor:20250421120710 # {"$imagepolicy": "delete-asyncstatus-project-in-case-inactivity:delete-asyncstatus-project-in-case-inactivity-executor"}
         ports:
         - containerPort: 8000
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8000
-          initialDelaySeconds: 15
-          periodSeconds: 5
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8000
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 8000
+        #   initialDelaySeconds: 15
+        #   periodSeconds: 5
+        #   timeoutSeconds: 5
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 8000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 5
         env:
         - name: GITHUB_TOKEN
           valueFrom:
