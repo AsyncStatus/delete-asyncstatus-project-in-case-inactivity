@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: executor
-        image: harbor.rent2door.pl/delete-asyncstatus-project-in-case-inactivity/executor:20250421120710 # {"$imagepolicy": "delete-asyncstatus-project-in-case-inactivity:delete-asyncstatus-project-in-case-inactivity-executor"}
+        image: harbor.rent2door.pl/delete-asyncstatus-project-in-case-inactivity/executor:20250514142730 # {"$imagepolicy": "delete-asyncstatus-project-in-case-inactivity:delete-asyncstatus-project-in-case-inactivity-executor"}
         ports:
         - containerPort: 8000
         # livenessProbe:
